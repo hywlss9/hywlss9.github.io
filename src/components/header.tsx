@@ -13,11 +13,11 @@ const LIST_ITEMS: ListItem[] = [
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between w-screen h-12 px-4 border-b">
+    <header className="flex items-center justify-between w-screen h-12 px-6 border-b">
       <h1>BLOG</h1>
       <ul className="flex items-conter justify-between">
         {LIST_ITEMS.map(({ id, name, link }) => (
-          <li key={id} className="ml-4">
+          <li key={id} className="ml-4 hover:underline">
             <Link href={link}>{name}</Link>
           </li>
         ))}

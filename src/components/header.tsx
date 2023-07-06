@@ -13,7 +13,7 @@ const LIST_ITEMS: ListItem[] = [
 
 export default function Header() {
   return (
-    <div className="flex items-center justify-between w-screen h-12 px-4 border-b">
+    <header className="flex items-center justify-between w-screen h-12 px-4 border-b">
       <h1>BLOG</h1>
       <ul className="flex items-conter justify-between">
         {LIST_ITEMS.map(({ id, name, link }) => (
@@ -22,6 +22,6 @@ export default function Header() {
           </li>
         ))}
       </ul>
-    </div>
+    </header>
   );
 }

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
 
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 import "@/styles/globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

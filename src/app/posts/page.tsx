@@ -1,8 +1,10 @@
 import { POSTS_PREVIEWS } from "@/constants/posts";
 
+import Container from "@/components/container";
+
 export default function Posts() {
   return (
-    <main>
+    <Container>
       <h2>글 목록</h2>
       <ul>
         {POSTS_PREVIEWS.map(({ id, title, description, date, tags }) => (
@@ -16,6 +18,6 @@ export default function Posts() {
           </li>
         ))}
       </ul>
-    </main>
+    </Container>
   );
 }

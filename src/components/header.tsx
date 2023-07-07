@@ -18,7 +18,7 @@ export default function Header() {
       <ul className="flex items-conter justify-between">
         {LIST_ITEMS.map(({ id, name, link }) => (
           <li key={id} className="ml-4 hover:underline">
-            <Link href={link}>{name}</Link>
+            <Link href={{ pathname: link }}>{name}</Link>
           </li>
         ))}
       </ul>

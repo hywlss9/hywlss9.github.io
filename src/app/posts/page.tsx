@@ -12,7 +12,7 @@ export default function Posts() {
       <ul>
         {POSTS_PREVIEWS.map(({ id, title, description, date, tags }) => (
           <li key={id} className="group flex-col border-b last:border-b-0">
-            <Link href={`/posts/${id}`} className="block py-4">
+            <Link href={{ pathname: `/posts/${id}` }} className="block py-4">
               <strong className="block mb-2 text-xl group-hover:underline">
                 {title}
               </strong>

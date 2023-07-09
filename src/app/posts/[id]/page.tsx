@@ -11,20 +11,16 @@ export default async function Post({
 }) {
   const { id } = params;
 
-  try {
-    const res = await fetch(`${siteConfig.url}/posts/${id}/${id}.md`);
-    const data = await res.text();
-    const html = marked.parse(data);
+  const res = await fetch(`${siteConfig.url}/markdowns/${id}/${id}.md`);
+  const data = await res.text();
+  const html = marked.parse(data);
 
-    return (
-      <Container>
-        <div
-          className="[&>p]:leading-8 [&>table]:border-collapse [&>table>thead>tr>th]:border [&>table>thead>tr>th]:p-3 [&>table>tbody>tr>td]:border [&>table>tbody>tr>td]:p-3"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </Container>
-    );
-  } catch {
-    return <>파일이 없습니다.</>;
-  }
+  return (
+    <Container>
+      <div
+        className="[&>p]:leading-8 [&>table]:border-collapse [&>table>thead>tr>th]:border [&>table>thead>tr>th]:p-3 [&>table>tbody>tr>td]:border [&>table>tbody>tr>td]:p-3"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </Container>
+  );
 }

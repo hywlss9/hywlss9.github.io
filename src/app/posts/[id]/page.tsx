@@ -1,7 +1,5 @@
 import { marked } from "marked";
 
-import { siteConfig } from "@/config/site";
-
 import Container from "@/components/container";
 
 export default async function Post({
@@ -11,7 +9,11 @@ export default async function Post({
 }) {
   const { id } = params;
 
-  const res = await fetch(`${siteConfig.url}/markdowns/${id}/${id}.md`);
+  const res = await fetch(
+    `${
+      process.env.NODE_ENV === "development" ? "http://localhost:3000" : ""
+    }/static/markdowns/${id}/${id}.md`
+  );
   const data = await res.text();
   const html = marked.parse(data);
 

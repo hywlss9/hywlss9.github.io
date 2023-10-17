@@ -4,6 +4,10 @@ import { siteConfig } from "@/config/site";
 
 import Container from "@/components/container";
 
+export function generateStaticParams() {
+  return [{ id: "1" }, { id: "2" }, { id: "3" }];
+}
+
 async function getMarkdownToHtml(id: string) {
   const res = await fetch(`${siteConfig.url}/markdowns/${id}/${id}.md`);
   const data = await res.text();

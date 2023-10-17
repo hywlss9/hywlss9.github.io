@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 import Container from "@/components/container";
 
 export function generateStaticParams() {
-  return [{ id: "1" }, { id: "2" }, { id: "3" }];
+  return [{ id: "0" }, { id: "1" }, { id: "2" }];
 }
 
 async function getMarkdownToHtml(id: string) {

@@ -13,11 +13,11 @@ export function generateStaticParams() {
 }
 
 async function getMarkdownToHtml(id: string) {
-  const res = await fetch(`${siteConfig.url}/markdowns/${id}/${id}.md`);
-  // TODO: test code
-  // const res = await fetch(
-  //   `${siteConfig.url}/nextjs-github-pages/markdowns/${id}/${id}.md`
-  // );
+  const FILE_URL =
+    process.env.NODE_ENV === "development"
+      ? `${siteConfig.url}/nextjs-github-pages/markdowns/${id}/${id}.md`
+      : `${siteConfig.url}/markdowns/${id}/${id}.md`;
+  const res = await fetch(FILE_URL);
   const data = await res.text();
   const html = marked.parse(data);
   return html;

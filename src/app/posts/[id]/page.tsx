@@ -2,20 +2,22 @@ import { marked } from "marked";
 
 import { siteConfig } from "@/config/site";
 
+import { POSTS_STATIC_PARAMS } from "@/constants/posts";
+
 import Container from "@/components/container";
 
 import "github-markdown-css";
 
 export function generateStaticParams() {
-  return [{ id: "0" }, { id: "1" }, { id: "2" }];
+  return POSTS_STATIC_PARAMS;
 }
 
 async function getMarkdownToHtml(id: string) {
-  const res = await fetch(`${siteConfig.url}/markdowns/${id}/${id}.md`);
-  // TODO: test code
-  // const res = await fetch(
-  //   `${siteConfig.url}/nextjs-github-pages/markdowns/${id}/${id}.md`
-  // );
+  const FILE_URL =
+    process.env.NODE_ENV === "development"
+      ? `${siteConfig.url}/nextjs-github-pages/markdowns/${id}/${id}.md`
+      : `${siteConfig.url}/markdowns/${id}/${id}.md`;
+  const res = await fetch(FILE_URL);
   const data = await res.text();
   const html = marked.parse(data);
   return html;

@@ -1,20 +1,10 @@
-export type Tag =
-  | "Front-End"
-  | "Back-End"
-  | "Network"
-  | "HTML/CSS"
-  | "JavaScript"
-  | "TypeScript"
-  | "React"
-  | "Electron";
+import type { PostsPreview, PostsStaticParams } from "@/types/posts";
 
-interface PostsPreview {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  tags: Tag[];
-}
+export const POSTS_STATIC_PARAMS: PostsStaticParams[] = [
+  { id: "0" },
+  { id: "1" },
+  { id: "2" },
+];
 
 export const POSTS_PREVIEWS: PostsPreview[] = [
   {

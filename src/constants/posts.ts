@@ -1,4 +1,10 @@
-import type { PostsPreview } from "@/types/posts";
+import type { PostsPreview, PostsStaticParams } from "@/types/posts";
+
+export const POSTS_STATIC_PARAMS: PostsStaticParams[] = [
+  { id: "0" },
+  { id: "1" },
+  { id: "2" },
+];
 
 export const POSTS_PREVIEWS: PostsPreview[] = [
   {

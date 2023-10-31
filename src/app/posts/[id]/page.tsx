@@ -2,12 +2,14 @@ import { marked } from "marked";
 
 import { siteConfig } from "@/config/site";
 
+import { POSTS_STATIC_PARAMS } from "@/constants/posts";
+
 import Container from "@/components/container";
 
 import "github-markdown-css";
 
 export function generateStaticParams() {
-  return [{ id: "0" }, { id: "1" }, { id: "2" }];
+  return POSTS_STATIC_PARAMS;
 }
 
 async function getMarkdownToHtml(id: string) {

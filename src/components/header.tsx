@@ -2,16 +2,7 @@ import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
 
-interface ListItem {
-  id: number;
-  name: string;
-  link: string;
-}
-
-const LIST_ITEMS: ListItem[] = [
-  { id: 0, name: "소개", link: "/about" },
-  { id: 1, name: "글 목록", link: "/posts" },
-];
+import { LIST_ITEMS } from "@/constants/links";
 
 export default function Header() {
   return (

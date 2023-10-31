@@ -16,4 +16,8 @@ interface PostsPreview {
   tags: Tag[];
 }
 
-export type { PostsPreview, Tag };
+interface PostsStaticParams {
+  id: string;
+}
+
+export type { PostsPreview, PostsStaticParams, Tag };

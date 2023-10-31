@@ -4,12 +4,18 @@ import { siteConfig } from "@/config/site";
 
 import Container from "@/components/container";
 
+import "github-markdown-css";
+
 export function generateStaticParams() {
   return [{ id: "0" }, { id: "1" }, { id: "2" }];
 }
 
 async function getMarkdownToHtml(id: string) {
   const res = await fetch(`${siteConfig.url}/markdowns/${id}/${id}.md`);
+  // TODO: test code
+  // const res = await fetch(
+  //   `${siteConfig.url}/nextjs-github-pages/markdowns/${id}/${id}.md`
+  // );
   const data = await res.text();
   const html = marked.parse(data);
   return html;
@@ -26,10 +32,7 @@ export default async function Post({
 
   return (
     <Container>
-      <div
-        className="[&>p]:leading-8 [&>table]:border-collapse [&>table>thead>tr>th]:border [&>table>thead>tr>th]:p-3 [&>table>tbody>tr>td]:border [&>table>tbody>tr>td]:p-3"
-        dangerouslySetInnerHTML={{ __html }}
-      />
+      <div className="markdown-body" dangerouslySetInnerHTML={{ __html }} />
     </Container>
   );
 }

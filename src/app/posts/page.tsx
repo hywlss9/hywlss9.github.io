@@ -15,7 +15,10 @@ export default function Posts() {
       <h2>글 목록</h2>
       <ul>
         {list.map(({ id, title, description, date, tags }) => (
-          <li key={id} className="group flex-col border-b last:border-b-0">
+          <li
+            key={id}
+            className="group flex-col border-b last:border-b-0 dark:border-dark-bo"
+          >
             <Link href={{ pathname: `/posts/${id}` }} className="block py-4">
               <strong className="block mb-2 text-xl group-hover:underline">
                 {title}

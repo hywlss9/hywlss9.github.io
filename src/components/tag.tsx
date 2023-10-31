@@ -1,4 +1,4 @@
-import type { Tag } from "@/constants/posts";
+import type { Tag } from "@/types/posts";
 
 interface TagProps {
   name: Tag;

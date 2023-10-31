@@ -1,20 +1,4 @@
-export type Tag =
-  | "Front-End"
-  | "Back-End"
-  | "Network"
-  | "HTML/CSS"
-  | "JavaScript"
-  | "TypeScript"
-  | "React"
-  | "Electron";
-
-interface PostsPreview {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  tags: Tag[];
-}
+import type { PostsPreview } from "@/types/posts";
 
 export const POSTS_PREVIEWS: PostsPreview[] = [
   {

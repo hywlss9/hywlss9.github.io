@@ -15,7 +15,7 @@ const LIST_ITEMS: ListItem[] = [
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between w-full h-12 px-6 border-b">
+    <header className="flex items-center justify-between w-full h-12 px-6 border-b dark:bg-dark-bg dark:border-dark-bo dark:text-white">
       <h1>
         <Link href={{ pathname: siteConfig.url }}>BLOG</Link>
       </h1>

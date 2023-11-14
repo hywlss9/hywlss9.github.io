@@ -1,17 +1,46 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+import { defaultMetadata, siteConfig } from "@/config/site";
+
 import Container from "@/components/container";
 
-const INFO: { title: string; content: string }[] = [
+export const metadata: Metadata = {
+  ...defaultMetadata,
+  openGraph: {
+    ...defaultMetadata.openGraph,
+    url: `${siteConfig.url}/about`,
+    title: "소개",
+    description: "개발자 박형진의 BLOG",
+  },
+};
+
+interface AboutListData {
+  title: string;
+  content: string;
+  link?: string;
+}
+
+const INFO: AboutListData[] = [
   { title: "이름", content: "박형진" },
   { title: "성별", content: "남자" },
   { title: "생년월일", content: "2001.06.12" },
   { title: "사는 곳", content: "서울" },
 ];
 
-const HISTORY: { title: string; content: string }[] = [
-  { title: "ARTiPIO", content: "2020.08 ~ ing" },
-  { title: "서울디지텍고등학교 강사", content: "2020.05" },
+const HISTORY: AboutListData[] = [
+  { title: "ARTiPIO", content: "2020.08 ~ ing", link: "https://artipio.com" },
+  {
+    title: "서울디지텍고등학교 강사",
+    content: "2020.05",
+    link: "http://www.sdh.hs.kr/",
+  },
   { title: "광운대학교", content: "2023.03 ~ ing" },
-  { title: "에이블스토어", content: "2020.06 ~ 2023.04" },
+  {
+    title: "에이블스토어",
+    content: "2020.06 ~ 2023.04",
+    link: "https://www.ablestor.com",
+  },
   { title: "서울디지텍고등학교", content: "2017.03 ~ 2020.02" },
 ];
 
@@ -42,12 +71,26 @@ export default function About() {
         <hr className="mt-4 mb-2" />
         <SubTitle>이력</SubTitle>
         <ul>
-          {HISTORY.map(({ title, content }, index) => (
-            <li key={index} className="flex">
-              <HarfBasisText>{title}</HarfBasisText>
-              <HarfBasisText>{content}</HarfBasisText>
-            </li>
-          ))}
+          {HISTORY.map(({ title, content, link }, index) => {
+            return (
+              <li key={index} className="flex">
+                <HarfBasisText>
+                  {link ? (
+                    <Link
+                      href={link}
+                      target="_blank"
+                      className="hover:underline"
+                    >
+                      {title}
+                    </Link>
+                  ) : (
+                    title
+                  )}
+                </HarfBasisText>
+                <HarfBasisText>{content}</HarfBasisText>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </Container>

@@ -1,4 +1,18 @@
+import type { Metadata } from "next";
+
+import { defaultMetadata, siteConfig } from "@/config/site";
+
 import Container from "@/components/container";
+
+export const metadata: Metadata = {
+  ...defaultMetadata,
+  openGraph: {
+    ...defaultMetadata.openGraph,
+    url: `${siteConfig.url}/about`,
+    title: "소개",
+    description: "개발자 박형진의 BLOG",
+  },
+};
 
 const INFO: { title: string; content: string }[] = [
   { title: "이름", content: "박형진" },

@@ -24,9 +24,9 @@ export const POSTS_PREVIEWS: PostsPreview[] = [
   },
   {
     id: 2,
-    title: "swagger에서 openapi-typescript로 data model 가져오기",
+    title: "swagger에서 typescript data model 동기화하기",
     description:
-      "TypeScript를 사용하며 Back-End와 Front-End의 data model을 동기화하는 방법을 소개합니다",
+      "openapi-typescript를 사용하며 Back-End와 Front-End의 data model을 동기화하는 방법을 소개합니다",
     date: "2023.03.17",
     tags: ["Front-End", "Back-End", "TypeScript"],
   },

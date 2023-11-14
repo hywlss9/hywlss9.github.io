@@ -28,10 +28,10 @@ export default function About() {
     <Container className="flex-col items-center justify-center">
       <div className="max-w-740 mx-auto">
         <strong className="block pb-4 text-4xl text-center">
-          /*BLOG 개발중*/
+          {"/*"} BLOG 개발중 {"*/"}
         </strong>
         <SubTitle>개발자 박형진의 BLOG</SubTitle>
-        <hr className="my-3" />
+        <hr className="mt-4mb-2" />
         <SubTitle>정보</SubTitle>
         {INFO.map(({ title, content }, index) => (
           <div key={index} className="flex items-center">

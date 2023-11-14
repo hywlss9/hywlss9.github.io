@@ -16,6 +16,9 @@ module.exports = {
         "dark-bg": "#0d1117",
         "dark-bo": "#374151",
       },
+      maxWidth: {
+        740: "740px",
+      },
     },
   },
   mode: "jit",

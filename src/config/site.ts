@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
+
 import type { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
   name: "형진의 blog",
-  description: "박형진 입니다.",
+  description: "개발자 박형진의 블로그 입니다.",
   url:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
@@ -10,5 +12,19 @@ export const siteConfig: SiteConfig = {
   ogImage: "https://hywlss9.github.io/og.png",
   links: {
     github: "https://github.com/hywlss9",
+  },
+};
+
+export const defaultMetadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: siteConfig.name,
+  description: siteConfig.description,
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
   },
 };

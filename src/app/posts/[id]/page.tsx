@@ -25,6 +25,7 @@ export async function generateMetadata({
     ...defaultMetadata,
     openGraph: {
       ...defaultMetadata.openGraph,
+      url: `${siteConfig.url}/posts/${id}`,
       title: siteConfig.name,
       description: post.title,
     },

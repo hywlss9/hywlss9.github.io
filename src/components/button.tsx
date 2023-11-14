@@ -5,7 +5,9 @@ export default function Button(props: ButtonProps) {
   return (
     <button
       {...props}
-      className={`px-3 py-2 rounded${className ? ` ${className}` : ""}`}
+      className={`px-3 py-2 border rounded border-black dark:border-white${
+        className ? ` ${className}` : ""
+      }`}
     >
       {children}
     </button>

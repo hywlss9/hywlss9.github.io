@@ -6,6 +6,8 @@ import { siteConfig, defaultMetadata } from "@/config/site";
 import { POSTS_STATIC_PARAMS, POSTS_PREVIEWS } from "@/constants/posts";
 
 import Container from "@/components/container";
+import PostHeader from "@/components/postHeader";
+import Title from "@/components/title";
 
 import "github-markdown-css";
 
@@ -19,15 +21,15 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const id = Number(params.id);
-  const post = POSTS_PREVIEWS[id];
+  const { title, description } = POSTS_PREVIEWS[id];
 
   return {
     ...defaultMetadata,
     openGraph: {
       ...defaultMetadata.openGraph,
+      title,
+      description,
       url: `${siteConfig.url}/posts/${id}`,
-      title: siteConfig.name,
-      description: post.title,
     },
   };
 }
@@ -50,10 +52,15 @@ export default async function Post({
 }) {
   const { id } = params;
 
+  const { title, date } = POSTS_PREVIEWS[Number(id)];
+
   const __html: string = await getMarkdownToHtml(id);
 
   return (
     <Container>
+      <PostHeader date={date} border={true}>
+        <Title>{title}</Title>
+      </PostHeader>
       <div className="markdown-body" dangerouslySetInnerHTML={{ __html }} />
     </Container>
   );

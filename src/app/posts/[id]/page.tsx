@@ -21,15 +21,15 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const id = Number(params.id);
-  const post = POSTS_PREVIEWS[id];
+  const { title, description } = POSTS_PREVIEWS[id];
 
   return {
     ...defaultMetadata,
     openGraph: {
       ...defaultMetadata.openGraph,
+      title,
+      description,
       url: `${siteConfig.url}/posts/${id}`,
-      title: siteConfig.name,
-      description: post.title,
     },
   };
 }

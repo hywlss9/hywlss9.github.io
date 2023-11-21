@@ -27,4 +27,7 @@ export const defaultMetadata: Metadata = {
     description: siteConfig.description,
     siteName: siteConfig.name,
   },
+  verification: {
+    google: "Et3yBpMT_i8rSI6iWT9woCnZtXXLrjeD7p4CEZv9XYw",
+  },
 };

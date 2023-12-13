@@ -8,6 +8,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 import "@/styles/globals.css";
+import "pretendard/dist/web/static/pretendard.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -30,7 +30,7 @@ export const defaultMetadata: Metadata = {
   verification: {
     google: "Et3yBpMT_i8rSI6iWT9woCnZtXXLrjeD7p4CEZv9XYw",
     other: {
-      naver: "86402e597299c992e080ee68b30026651e809f7b",
+      "naver-site-verification": "86402e597299c992e080ee68b30026651e809f7b",
     },
   },
 };

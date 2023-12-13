@@ -12,7 +12,6 @@ export default function Posts() {
 
   return (
     <Container>
-      <h2>글 목록</h2>
       <ul>
         {list.map(({ id, title, description, date, tags }) => (
           <li

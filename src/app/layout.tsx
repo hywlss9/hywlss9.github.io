@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "@next/font/google";
+import classNames from "classnames";
 
 import { defaultMetadata } from "@/config/site";
 
@@ -19,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={classNames(inter.className, 'dark:bg-dark-bg')}>
         <Header />
         {children}
         <Footer />

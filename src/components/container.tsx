@@ -5,7 +5,7 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {}
 
 export default function Container({ children, className }: ContainerProps) {
   return (
-    <main className={classnames('min-h-[calc(100vh-3rem)]', 'p-6', 'dark:bg-dark-bg', 'dark:text-white', 'xl:w-[800px]', 'xl:mx-auto', className)}>
+    <main className={classnames('min-h-[calc(100vh)]', 'px-6', 'py-16', 'dark:bg-dark-bg', 'dark:text-white', 'xl:w-[800px]', 'xl:mx-auto', className)}>
       {children}
     </main>
   );

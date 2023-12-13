@@ -16,6 +16,7 @@ export default function Header() {
                 : ""
             }`,
           }}
+          className="font-bold"
         >
           BLOG
         </Link>

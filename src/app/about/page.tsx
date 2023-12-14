@@ -25,7 +25,6 @@ const INFO: AboutListData[] = [
   { title: "이름", content: "박형진" },
   { title: "성별", content: "남자" },
   { title: "생년월일", content: "2001.06.12" },
-  { title: "사는 곳", content: "서울" },
 ];
 
 const HISTORY: AboutListData[] = [
@@ -56,10 +55,11 @@ export default function About() {
   return (
     <Container className="flex-col items-center justify-center">
       <div className="max-w-740 mx-auto">
-        <strong className="block pb-4 text-4xl text-center">
-          {"/*"} BLOG 개발중 {"*/"}
-        </strong>
         <SubTitle>개발자 박형진의 BLOG</SubTitle>
+        <div className="mb-2">
+          <p>안녕하세요</p>
+          <p>프론트엔드 개발자 박형진입니다.</p>
+        </div>
         <hr className="mt-4mb-2" />
         <SubTitle>정보</SubTitle>
         {INFO.map(({ title, content }, index) => (

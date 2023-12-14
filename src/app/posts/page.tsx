@@ -1,24 +1,22 @@
 import Link from "next/link";
 
-import { POSTS_PREVIEWS } from "@/constants/posts";
-
 import Container from "@/components/container";
 import Tag from "@/components/tag";
 
-export default function Posts() {
-  const list = POSTS_PREVIEWS.sort((a, b) =>
-    new Date(a.date) > new Date(b.date) ? -1 : 1
-  );
+import getPosts from "@/util/getPost";
+
+export default async function Posts() {
+  const posts = await getPosts();
 
   return (
     <Container>
       <ul>
-        {list.map(({ id, title, description, date, tags }) => (
+        {posts.map(({ id, slug, title, description, date, tags }) => (
           <li
             key={id}
             className="group flex-col border-b last:border-b-0 dark:border-dark-bo"
           >
-            <Link href={{ pathname: `/posts/${id}` }} className="block py-4">
+            <Link href={{ pathname: `/posts/${slug}` }} className="block py-4">
               <strong className="block mb-2 text-xl group-hover:underline">
                 {title}
               </strong>

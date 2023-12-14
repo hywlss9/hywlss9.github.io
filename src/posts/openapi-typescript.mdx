@@ -1,3 +1,11 @@
+---
+title: 'Swagger와 함께 openapi-typescript 사용하기'
+description: 'openapi-typescript를 사용하여 Back-End/Front-End의 interface를 동기화하는 방법을 소개합니다'
+date: '2023.03.17'
+tags: ['Front-End', 'Back-End', 'TypeScript']
+slug: 'openapi-typescript'
+---
+
 회사에서 새로운 프로젝트를 진행하던 중,  
 TypeScript를 쓰는데 response type을 알 수 없어 TypeScript를 쓰는 의미가 없는 코드가 생기거나  
 항상 직접 api 요청을 해보고 response type을 클라이언트에서 직접 일일이 작성해 주는 게
@@ -22,9 +30,11 @@ npx openapi-typescript ${schema docs url} --output schema.ts
 schema 문서의 주소와 저장할 파일의 경로만 입력해 주면 끝이다.
 당연히 뒤에 저장할 파일 명은 수정이 가능하다.
 
+&nbsp;
+
 schema가 어떻게 생성되는지 실제 사용 코드로 짧게 예시를 올려보겠다.
 
-```typescript
+```tsx
 export interface path {
   "/api/v1/groups/{groupId}": {
     /** groupId에 해당하는 그룹의 정보를 가져옵니다. */
@@ -35,7 +45,7 @@ export interface path {
     patch: operations["GroupController_updateGroup"];
   };
 }
-
+ 
 export interface components {
   schemas: {
     Group$mZFLkyvTelC5g8XnyQrpOw: {
@@ -53,7 +63,7 @@ export interface components {
     };
   };
 }
-
+ 
 export interface operations {
   /** groupId에 해당하는 그룹의 정보를 가져옵니다. */
   GroupController_getGroup: {
@@ -80,11 +90,13 @@ export interface operations {
 path, comonents, operations가 이런 식으로 이쁘게 정리되어 나온다.
 백엔드 개발자가 schema 문서에 주석을 이쁘게 잘 달아놓으면 그것까지 잘 가져오는 모습이다.
 
+&nbsp;
+
 schema.ts가 이렇게 생성이 잘 되었으면 type이 필요한 곳에서 가져다 쓰면 된다.
 
-```typescript
+```tsx
 import { components } from "./schema.ts";
-
+ 
 type APIResponse = components["schemas"]["APIResponse"];
 ```
 
@@ -92,34 +104,38 @@ type APIResponse = components["schemas"]["APIResponse"];
 이렇게 사용하면 된다.
 components의 마지막 배열 key 값은 swagger schema에 백엔드 개발자분이 짠 이름으로 되어 있을 것이다.
 
+&nbsp;
+
 그리고 api response뿐만 아니라 api request 시에 필요한 데이터도 받아 올 수 있다.
 
-```typescript
+```tsx
 import { operations } from "./schema.ts";
-
+ 
 type getUsersById = operations["getUsersById"];
 ```
 
 이렇게 operations에서 요청할 api를 key 값으로 넣고 가져오면
 해당 api 요청 시에 필요한 data의 type을 가져올 수 있다.
 
+&nbsp;
+
 실제 사용하고 있는 코드를 예시로 짧게 올려보겠다.
 
-```typescript
+```tsx
 import { authenticateRequest } from "@api/authenticateRequest";
-
+ 
 import type { components, operations } from "@type/model";
-
+ 
 type GetGroupInfoPath =
   operations["GroupController_getGroup"]["parameters"]["path"];
-
+ 
 interface GetGroupInfoProps {
   path: GetGroupInfoPath;
 }
-
+ 
 type GetGroupInfoResponse =
   components["schemas"]["Group$mZFLkyvTelC5g8XnyQrpOw"];
-
+ 
 export async function getGroupInfo({
   path,
 }: GetGroupInfoProps): Promise<GetGroupInfoResponse | false> {
@@ -131,13 +147,15 @@ export async function getGroupInfo({
 
   return response;
 }
-
+ 
 export type { GetGroupInfoProps, GetGroupInfoResponse };
 ```
 
 그룹 정보를 요청하는 api 요청 코드이다.
 이렇게 api request data와 response data를 가져와 api 요청 코드를 작성 할 수 있다.
 authenticateRequest는 프로젝트에 맞춰 axois 관련 코드를 감싸는 내가 따로 작성한 함수이다.
+
+&nbsp;
 
 서버에서 schema가 바뀌면 처음 schema를 가져올 때 사용한 코드를 다시 쓰면 된다.
 새롭게 바뀐 schema가 덮어씌워질 것이다.

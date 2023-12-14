@@ -1,33 +1,35 @@
-프론트엔드 개발을 하면  
-대부분 쓰이는 것이 바로 Modal이다.
+---
+title: 'JS Event Listener로 Modal 관리하기'
+description: 'React에서 Event Listener를 사용하여 Modal을 관리하는 방법을 소개합니다'
+date: '2022.04.20'
+tags: ['Front-End', 'JavaScript', 'TypeScript', 'React']
+slug: 'modal-event-listener'
+---
+
+프론트엔드 개발을 하다 보면 대부분 쓰이는 것이 바로 Modal이다.
 
 우리 회사는 따로 만들거나 정해진 design system이 없어서 ant design(antd)라는 UI library를 사용하는데  
-antd의 Modal 시스템은  
-사용하는 컴포넌트에 Modal을 각각 다 렌더링 하고  
-해당 컴포넌트마다 state로 Modal의 visible을 관리하는 형식이다.
+antd의 Modal 시스템은 사용하는 컴포넌트에 Modal을 각각 다 렌더링 하고, 해당 컴포넌트마다 state로 Modal의 visible을 관리하는 형식이다.
 
-하지만 개발을 하다 보면  
-하나의 Modal을 여러곳에서 사용하게 되는 상황이 생기게 되는데  
-이럴 때마다 같은 Modal 코드를 여러 곳에 작성하고,  
-여러 Modal의 state를 작성하는 것은 좋은 방식이 아니라고 생각이 되어  
-이전부터 Modal 구조를 쭉 고민했었다.
+하지만 개발을 하다 보면 하나의 Modal을 여러곳에서 사용하게 되는 상황이 생기게 되는데  
+이럴 때마다 같은 Modal 코드를 여러 곳에 작성하고, 여러 Modal의 state를 작성하는 것은 좋은 방식이 아니라고 생각이 되어 이전부터 Modal 구조를 쭉 고민했었다.
 
 나에겐 아래 3가지 기능이 필요했다.
 
-- Modal을 필요한 곳에서 다 불러오지 않고 한곳에서 관리할 것
-- Modal에서 event를 발생시키면 필요한 컴포넌트에서 해당 event를 받을 수 있을 것
-- Modal에 props를 보낼 수 있을 것
+<ul style={{ 'list-style': 'initial' }}>
+  <li>Modal을 필요한 곳에서 다 불러오지 않고 한곳에서 관리할 것</li>
+  <li>Modal에서 event를 발생시키면 필요한 컴포넌트에서 해당 event를 받을 수 있을 것</li>
+  <li>Modal에 props를 보낼 수 있을 것</li>
+</ul>
 
 &nbsp;  
-그러다 오늘 나름 괜찮은 방법을 구현하게 되었는데  
-나중에 또 쓸 일이 있을 거 같아 블로그에 남기기로 했다.  
-또한, 굳이 antd Modal뿐만 아니라 다른 Modal과
-이렇게 전역으로 관리해야 하는 것들을 이 방식을 사용해도 좋을 거 같다.
+그러다 오늘 어쩌다 보니 구현하게 되었는데 나중에 또 쓸 일이 있을 거 같아 블로그에 남기기로 했다.  
+또한, 굳이 antd Modal뿐만 아니라 다른 Modal과 이렇게 전역으로 관리해야 하는 것들을 이 방식을 사용해도 좋을 거 같다.
 
 물론 당연히 이게 완벽한 정답은 아니니 더 좋은 방법이 있다면 알려주시면 감사하겠습니다.
 
-사용하는 것은  
-Typescript, React, react-redux antd이다.
+사용한 기술 스택은  
+Typescript, React, React-Redux, antd이다.
 
 ---
 
@@ -49,11 +51,11 @@ Typescript, React, react-redux antd이다.
 
 ### App.tsx
 
-```typescript
+```tsx
 import Test from "@src/pages/Test";
-
+ 
 import ModalManager from "@src/components/ModalManager";
-
+ 
 function App() {
   return (
     <div className="App">
@@ -62,7 +64,7 @@ function App() {
     </div>
   );
 }
-
+ 
 export default App;
 ```
 
@@ -78,37 +80,37 @@ Redux를 쓴다면 index.tsx에서 Provider로 감싸져 있을 것이다.
 
 ### modal.ts
 
-```typescript
+```tsx
 import update from "immutability-helper";
-
+ 
 const OPENMODAL = "modal/OPENMODAL" as const;
 const CLOSEMODAL = "modal/CLOSEMODAL" as const;
-
+ 
 interface ModalData {
   name: string;
   props?: { [key in string]: any };
 }
-
+ 
 export const openModal = (modal: ModalData) => ({
   type: OPENMODAL,
   payload: modal,
 });
-
+ 
 export const closeModal = (modal: ModalData) => ({
   type: CLOSEMODAL,
   payload: modal,
 });
-
+ 
 type ModalAction = ReturnType<typeof openModal | typeof closeModal>;
-
+ 
 type ModalState = {
   openedModals: ModalData[];
 };
-
+ 
 const initialState: ModalState = {
   openedModals: [],
 };
-
+ 
 function modals(
   state: ModalState = initialState,
   action: ModalAction
@@ -118,7 +120,7 @@ function modals(
       const isModal =
         state.openedModals.findIndex((v) => v.name === action.payload.name) >
         -1;
-
+ 
       return {
         ...state,
         openedModals: isModal
@@ -130,7 +132,7 @@ function modals(
       const findIndex = state.openedModals.findIndex(
         (v) => v.name === action.payload.name
       );
-
+ 
       return update(state, {
         openedModals: {
           $splice: [[findIndex, 1]],
@@ -141,7 +143,7 @@ function modals(
       return state;
   }
 }
-
+ 
 export default modals;
 ```
 
@@ -155,29 +157,29 @@ openedModals에 현재 열려있는 modal의 이름과 props를 넣어서 관리
 
 ### ModalEvents.ts
 
-```typescript
+```tsx
 export interface EventProps {
   eventType: string;
   listener: (event?: any) => void;
 }
-
+ 
 export function on(eventType: string, listener: (event?: any) => void) {
   document.addEventListener(eventType, listener);
 }
-
+ 
 export function off(eventType: string, listener: (event?: any) => void) {
   document.removeEventListener(eventType, listener);
 }
-
+ 
 export function once(eventType: string, listener: (event?: any) => void) {
   on(eventType, handleEventOnce);
-
+ 
   function handleEventOnce(event: (event?: any) => void) {
     listener(event);
     off(eventType, handleEventOnce);
   }
 }
-
+ 
 export function trigger(eventType: string, data?: any) {
   const event = new CustomEvent(eventType, { detail: data });
   document.dispatchEvent(event);
@@ -198,20 +200,20 @@ event를 실행하는 trigger
 
 ### ModalManager.tsx
 
-```typescript
+```tsx
 import { lazy, Suspense } from "react";
-
+ 
 import { useSelector } from "react-redux";
-
+ 
 import { RootState } from "@src/reduce";
-
+ 
 const MODALS = {
   Test: lazy(() => import("@src/components/Modals/Test")),
 };
-
+ 
 function ModalManager() {
   const { openedModals } = useSelector((state: RootState) => state.modals);
-
+ 
   return (
     <>
       {openedModals.map(({ name, props }) => {
@@ -233,7 +235,7 @@ function ModalManager() {
     </>
   );
 }
-
+ 
 export default ModalManager;
 ```
 
@@ -245,23 +247,23 @@ openedModals를 map 돌려 redux에 저장된 Modal name을 mapping 시켜 Modal
 
 ### TestModal.tsx
 
-```typescript
+```tsx
 import { Modal, ModalProps } from "antd";
-
+ 
 import { trigger } from "@src/util/ModalEvents";
-
+ 
 interface TestModalProps extends ModalProps {
   data?: any;
 }
-
+ 
 function TestModal(props: TestModalProps) {
   const handleEvent = () => {
     trigger("SUCCESS");
-
+ 
     // 이렇게 두 번째 인자로 data도 넘길 수 있다.
     // trigger('SUCCESS', data);
   };
-
+ 
   return (
     <Modal {...props} visible={true}>
       <button onClick={handleEvent}>{data}</button>
@@ -282,46 +284,46 @@ Modal에 있는 버튼을 클릭하면 handleEvent의 trigger가 실행될 것�
 
 ### Test.tsx
 
-```typescript
+```tsx
 import { useEffect } from "react";
-
+ 
 import { useDispatch } from "react-redux";
-
+ 
 import { openModal } from "@src/reduce/modals";
-
+ 
 import { on, off } from "@src/util/ModalEvents";
-
+ 
 function Test() {
   const dispatch = useDispatch();
-
+ 
   const openTestModal = () => {
     dispatch(openModal({ name: "Test" }));
-
+ 
     // 이런 형식으로 props를 보낼 수 있다.
     // dispatch(openModal({ name: 'Test', props: { data } }));
   };
-
+ 
   const handleModalEvent = (e: CustomEventInit) => {
     console.log("success");
-
+ 
     // e.detail로 trigger에서 보낸 data를 받을 수 있다.
   };
-
+ 
   useEffect(() => {
     on("SUCCESS", handleModalEvent);
-
+ 
     return () => {
       off("SUCCESS", handleModalEvent);
     };
   }, []);
-
+ 
   return (
     <div>
       <button onClick={openTestModal}>open Modal</button>
     </div>
   );
 }
-
+ 
 export default Test;
 ```
 
@@ -337,15 +339,15 @@ useEffect에서 on으로 받을 수 있다.
 
 **22.04.27 수정 사항**
 
-```typescript
+```tsx
 const [data, setData] = useState(null);
-
+ 
 setData({ a: 1 });
-
+ 
 const callback = () => {
   console.log(data); // null
 };
-
+ 
 // 수정 전
 useEffect(() => {
   on("SUCCESS", callback);
@@ -353,7 +355,7 @@ useEffect(() => {
     off("SUCCESS", callback);
   };
 }, []);
-
+ 
 // 수정 후
 useEffect(() => {
   on("SUCCESS", callback);

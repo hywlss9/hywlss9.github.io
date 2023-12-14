@@ -11,9 +11,9 @@ export default async function Posts() {
   return (
     <Container>
       <ul>
-        {posts.map(({ id, slug, title, description, date, tags }) => (
+        {posts.map(({ slug, title, description, date, tags }) => (
           <li
-            key={id}
+            key={slug}
             className="group flex-col border-b last:border-b-0 dark:border-dark-bo"
           >
             <Link href={{ pathname: `/posts/${slug}` }} className="block py-4">

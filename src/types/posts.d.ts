@@ -9,7 +9,6 @@ type Tag =
   | "Electron";
 
 interface FrontMatter {
-  id: number;
   title: string;
   description: string;
   date: string;

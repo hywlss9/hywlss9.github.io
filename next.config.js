@@ -1,4 +1,5 @@
 // @ts-check
+const withMDX = require('@next/mdx')()
 
 /**
  * @type {import('next').NextConfig}
@@ -27,6 +28,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  experimental: {
+    mdxRs: true,
+  },
 };
 
-module.exports = nextConfig;
+module.exports = withMDX(nextConfig);

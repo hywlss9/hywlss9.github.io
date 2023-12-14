@@ -2,11 +2,12 @@ import { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
 
-import { POSTS_STATIC_PARAMS } from "@/constants/posts";
+import { getPosts } from '@/util/getPost';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const postsUrls = POSTS_STATIC_PARAMS.map(
-    (params) => `${siteConfig.url}/posts/${params.id}`
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getPosts()
+  const postsUrls = posts.map(
+    (params) => `${siteConfig.url}/posts/${params.slug}`
   );
 
   return [

@@ -8,16 +8,12 @@ type Tag =
   | "React"
   | "Electron";
 
-interface PostsPreview {
-  id: number;
+interface FrontMatter {
   title: string;
   description: string;
   date: string;
   tags: Tag[];
+  slug: string;
 }
 
-interface PostsStaticParams {
-  id: string;
-}
-
-export type { PostsPreview, PostsStaticParams, Tag };
+export type { FrontMatter, Tag };

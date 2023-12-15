@@ -8,18 +8,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between fixed w-full h-12 px-6 border-b dark:bg-dark-bg dark:border-dark-bo dark:text-white">
       <h1>
-        <Link
-          href={{
-            pathname: `${siteConfig.url}${
-              process.env.NODE_ENV === "development"
-                ? "/nextjs-github-pages"
-                : ""
-            }`,
-          }}
-          className="font-bold"
-        >
-          BLOG
-        </Link>
+        <Link href={siteConfig.url} className="font-bold">BLOG</Link>
       </h1>
       <ul className="flex items-conter justify-between">
         {LIST_ITEMS.map(({ id, name, link }) => (

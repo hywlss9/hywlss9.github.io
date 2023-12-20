@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@config/site";
 
-import { LIST_ITEMS } from "@/constants/links";
+import { LIST_ITEMS } from "@constants/links";
 
 export default function Header() {
   return (

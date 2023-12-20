@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import type { SiteConfig } from "@types";
+import type { SiteConfig } from "@type";
 
 export const siteConfig: SiteConfig = {
   name: "박형진 블로그 - hywlss9",

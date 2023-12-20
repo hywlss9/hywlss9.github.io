@@ -29,9 +29,11 @@ export async function generateMetadata({
 
   return {
     ...defaultMetadata,
+    title: `${post?.title} - hywlss9`,
+    description: post?.description,
     openGraph: {
       ...defaultMetadata.openGraph,
-      title: post?.title,
+      title: `${post?.title} - hywlss9`,
       description: post?.description,
       url: `${siteConfig.url}/posts/${params.slug}`,
     },

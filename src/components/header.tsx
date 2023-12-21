@@ -6,7 +6,7 @@ import { LIST_ITEMS } from "@constants/links";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between fixed w-full h-12 px-6 border-b dark:bg-dark-bg dark:border-dark-bo dark:text-white">
+    <header className="flex items-center justify-between fixed w-full h-12 px-6 border-b bg-white dark:bg-dark-bg dark:border-dark-bo dark:text-white">
       <h1>
         <Link href={siteConfig.url} className="font-bold">BLOG</Link>
       </h1>

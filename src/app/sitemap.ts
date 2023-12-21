@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { siteConfig } from "@config/site";
+import { siteConfig } from "@/config/site";
 
 import { getPosts } from '@util/getPost';
 

@@ -122,9 +122,9 @@ type getUsersById = operations["getUsersById"];
 실제 사용하고 있는 코드를 예시로 짧게 올려보겠다.
 
 ```tsx
-import { authenticateRequest } from "@api/authenticateRequest";
+import { authenticateRequest } from "@/api/authenticateRequest";
  
-import type { components, operations } from "@type/model";
+import type { components, operations } from "@/types/model";
  
 type GetGroupInfoPath =
   operations["GroupController_getGroup"]["parameters"]["path"];

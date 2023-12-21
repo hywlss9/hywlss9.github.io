@@ -1,13 +1,4 @@
-type Tag =
-  | "Front-End"
-  | "Back-End"
-  | "Network"
-  | "HTML/CSS"
-  | "JavaScript"
-  | "TypeScript"
-  | "React"
-  | "Next.js"
-  | "Electron";
+type Tag = 'Front-End' | 'Back-End' | 'Network' | 'HTML/CSS' | 'JavaScript' | 'TypeScript' | 'React' | 'Next.js' | 'Electron';
 
 interface FrontMatter {
   title: string;

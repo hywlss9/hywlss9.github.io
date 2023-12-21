@@ -1,30 +1,26 @@
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
-import { siteConfig, defaultMetadata } from "@/config/site";
+import { siteConfig, defaultMetadata } from '@/config/site';
 
-import Container from "@/components/container";
-import PostHeader from "@/components/postHeader";
-import Title from "@/components/title";
+import Container from '@/components/container';
+import PostHeader from '@/components/postHeader';
+import Title from '@/components/title';
 
-import { getPost, getPosts } from "@/util/getPost";
+import { getPost, getPosts } from '@/util/getPost';
 
-import { mdxComponents } from "@/app/mdx-components";
+import { mdxComponents } from '@/app/mdx-components';
 
-import "github-markdown-css";
+import 'github-markdown-css';
 
 export async function generateStaticParams() {
   const posts = await getPosts();
-  
+
   return posts.map(({ slug }) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPost(params.slug);
 
   return {
@@ -43,18 +39,11 @@ export async function generateMetadata({
 function PostBody({ children }: { children: string }) {
   return (
     // @ts-ignore
-    <MDXRemote
-      source={children}
-      components={mdxComponents}
-    />
-  )
+    <MDXRemote source={children} components={mdxComponents} />
+  );
 }
 
-export default async function Post({
-  params,
-}: {
-  params: { [key: string]: string };
-}) {
+export default async function Post({ params }: { params: { [key: string]: string } }) {
   const { slug } = params;
 
   const post = await getPost(slug);
@@ -66,7 +55,7 @@ export default async function Post({
       <PostHeader date={post?.date} border={true}>
         <Title>{post?.title}</Title>
       </PostHeader>
-      <div className="markdown-body">
+      <div className='markdown-body'>
         <PostBody>{post?.body}</PostBody>
       </div>
     </Container>

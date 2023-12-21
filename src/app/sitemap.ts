@@ -1,14 +1,12 @@
-import { MetadataRoute } from "next";
+import { MetadataRoute } from 'next';
 
-import { siteConfig } from "@/config/site";
+import { siteConfig } from '@/config/site';
 
-import { getPosts } from '@util/getPost';
+import { getPosts } from '@/util/getPost';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getPosts()
-  const postsUrls = posts.map(
-    (params) => `${siteConfig.url}/posts/${params.slug}`
-  );
+  const posts = await getPosts();
+  const postsUrls = posts.map((params) => `${siteConfig.url}/posts/${params.slug}`);
 
   return [
     {

@@ -1,12 +1,12 @@
 import { cache } from 'react';
 import fs from 'fs/promises';
-import matter from "gray-matter";
-import path from "path";
-import type { FrontMatter } from '@type/posts';
+import matter from 'gray-matter';
+import path from 'path';
+import type { FrontMatter } from '@/types/posts';
 
 export const getPosts = cache(async () => {
-  const posts  = await fs.readdir('./src/posts/');
-  
+  const posts = await fs.readdir('./src/posts/');
+
   return Promise.all(
     posts
       .filter((file) => path.extname(file) === '.mdx')
@@ -14,11 +14,11 @@ export const getPosts = cache(async () => {
         const filePath = `./src/posts/${file}`;
         const postContent = await fs.readFile(filePath, 'utf8');
         const { data, content } = matter(postContent);
-        
+
         return { ...data, body: content } as FrontMatter & { body: string };
       })
-  ).then((posts) => posts.sort((a, b) => new Date(a.date) > new Date(b.date) ? -1 : 1));
-})
+  ).then((posts) => posts.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1)));
+});
 
 export async function getPost(slug: string) {
   const posts = await getPosts();

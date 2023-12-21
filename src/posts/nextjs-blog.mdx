@@ -1,0 +1,587 @@
+---
+title: 'Next.js 13 App Router 블로그 개발기'
+description: 'Next.js 13에서 App Router를 사용하여 블로그를 개발한 이야기입니다'
+date: '2023.12.20'
+tags: ['Front-End', 'TypeScript', 'React', 'Next.js']
+slug: 'nextjs-blog'
+---
+
+> 이 포스트는 필자가 Next.js를 사용하여 개인 블로그를 개발한 이야기이다.  
+[Github Repo](https://github.com/hywlss9/hywlss9.github.io)
+
+## 블로그를 개발하게 된 이유
+필자는 예전부터 블로그를 만들고 글을 작성하고 싶은 생각이 있었다.  
+
+일단은 시작이라도 해보자! 하고 [Naver 블로그](https://blog.naver.com/hywlss9)를 시작하였는데, Naver 블로그는 정말 훌륭한 플랫폼이지만 개발보다는 좀 더 일상/여행 등의 요소와 잘 어울리는 스타일 같았다.  
+
+다른 여러 개발자들이 티스토리, velog, medium과 같은 블로그 플랫폼을 사용하거나 개인 블로그를 직접 개발하여 만드는 것을 보고 '아 나도 언젠가는 저런 블로그를 운영해 보고 싶다' 라는 생각을 했었다.  
+
+필자는 다른 블로그 플랫폼을 사용하는 것과 직접 개발하는 선택지가 있었는데, 그래도 기왕 하는 거 공부도 할 겸 직접 개발하면 좋겠다는 생각이 들어 블로그를 직접 개발하게 되었다.  
+
+<br />
+
+## Next.js를 사용한 이유
+직접 블로그를 만드는 방법에는 여러 가지가 있지만, 필자는 `Next.js`와 `Gastby` 중 한 가지를 생각 중 이었다.  
+
+일단 필자가 경험해 본 프론트엔드 기술 스택이 React 말고는 없었기 때문에 React 기반이거나 비슷해야 했기 때문에 저 두 가지를 후보로 세워놨다.  
+
+그리고 블로그를 개발하는데 있어 필요한 것들이 있었다.
+- 서버 없는 블로그
+- SEO 최적화
+- 마크 다운 지원
+- <b>블로그 개발을 통한 성장</b>
+
+이렇게 4가지이다.  
+
+사실 위 리스트 중 1~3번은 `Next.js`와 `Gastby` 둘 다 아주 잘 지원하는 부분이다.  
+
+두 가지 모두 `SSR`, `SSG` 방식을 매우 잘 지원하기 때문에 SEO 측면에서도 적절하고, 서버가 없는 환경은 마크다운을 사용하여 글을 관리하고 Github-Pages를 사용하여 배포하기 때문에 커버가 가능하다.  
+
+그렇다면 남은 것은 <b>'블로그 개발을 통한 성장'</b>인데,  
+필자는 이전 회사에서는 CSR 개발만 해보았기 때문에 Next.js를 경험하지 못한 상태였다. 또한, 올해 중순 이직을 준비하며 여러 채용 페이지들을 보니 대부분의 프론트엔드 기술 스택에 Next.js를 넣어 놓은 모습을 볼 수 있었다.  
+
+Next.js를 경험해 보지 못한 필자는 이번 기회에 사용해 봐야겠다는 생각과,  추후 이 블로그 자체가 내 포트폴리오로 사용되기에 좋겠다고 생각이 들어 `Next.js`를 선택하게 되었다.  
+
+<br />
+
+## Pages Router와 App Router
+필자가 Next.js를 선택하고 이제 막 블로그 개발을 하려고 하던 참, Next.js 13 이 stable로 업데이트되면서 다시 한번 선택의 기로에 놓이게 되었다.  
+
+그 이유는 바로 <b>기존의 Next.js</b>에서 지원하는 `Pages Router`와 <b>Next.js 13</b>에서 새롭게 지원하는 `App Router`의 차이 때문이었다.
+
+### Pages Router
+Next.js에서 13버전 이전까지 지원하는 routing 방식이며(13 이후에도 지원은 한다) src/pages 폴더 안에 `_app.tsx`, `_document.tsx`, `[page].tsx` 등을 사용하여 routing을 하는 방식이다.  
+
+### App Router
+Next.js 13 버전에서 새로 나온 Router 방식이며 src/app 폴더 안에 각 페이지 별로 폴더를 만들어 `layout.tsx`, `page.tsx` 등을 사용하여 routing을 하는 방식이다.  
+
+<br />
+
+사실 이 부분은 그렇게 큰 고민을 하지 않았다. 그 이유는 아래와 같은데  
+
+첫 번째로 필자는 어차피 pages와 app 둘 다 사용해 보지 않았기 때문에, App Router로 바뀌었다고 그렇게 큰 허들이 되지는 않았다.  
+두 번째는 App Router가 stable 되었기 때문에 당연히 이제 Next.js에서 공식적으로 지원하고, 지향하는 방식인 App Router를 쓰는 게 맞다고 생각했다.  
+세 번째는 App Router로 개발한 아티클이 많지 않을 것이라고 생각했기 때문에, 내가 개발한 경험을 이렇게 블로그에 업로드하면 다른 사람들이 내 블로그를 찾아올 확률이 조금이라도 높아지지 않을까? 하는 생각 때문이었다.  
+> _지금은 훌륭한 퀄리티의 아티클이 꽤나 많다_
+
+위와 같은 이유로 필자는 `App Router`를 사용하여 블로그를 개발하게 되었다.  
+
+<br />
+
+## 사용 기술
+`Next.js 13` `TypeScript` `Yarn` `Tailwind CSS` `github-markdown-css` `mdx` `bright` `gray-matter` `Github-Pages` `Github Actions`
+
+<br />
+
+## 디렉토리 구조
+<div className='flex gap-4 w-full max-md:flex-col'>
+  <div className='w-1/2 h-fit max-md:w-full'>
+    <p className='text-center'>In src</p>
+    <img src='/images/directory.png' alt='directory'/>
+  </div>
+  <div className='w-1/2 h-fit max-md:w-full'>
+    <p className='text-center'>App Router</p>
+    <img src='/images/app-route.png' alt='app-route'/>
+  </div>
+</div>
+
+<br />
+
+> 글 작성일 기준(2023.12.20) 디렉토리 구조는 이렇게 되어 있으며 추후 필자가 만들고 싶은 게 생기면 바뀔 수 있다.  
+(추후 Sidebar navigation 추가 예정)
+
+<br />
+
+## 개발 과정
+### 1. Next.js 13 App Router 적용 및 레이아웃 구성
+
+App Router는 layout.tsx로 레이아웃을 구성하고, page.tsx로 페이지를 구성하는 방식이다.  
+
+아래 코드는 layout.tsx이며, 이 파일은 모든 페이지에서 공통으로 사용되는 레이아웃을 구성하는 파일이다.    
+
+- app/layout.tsx
+```tsx
+// src/app/layout.tsx
+import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
+  
+import { defaultMetadata } from '@/config/site';
+  
+import Header from '@/components/header';
+import Footer from '@/components/footer';
+  
+import '@/styles/globals.css';
+import 'pretendard/dist/web/static/pretendard.css';
+  
+export const metadata: Metadata = defaultMetadata;
+  
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang='ko'>
+      <body className='dark:bg-dark-bg'>
+        <Header />
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
+}
+```
+
+layout.tsx에서는 Header와 Footer를 구성하고, children으로 page.tsx에서 구성한 페이지를 받아와서 렌더링 한다.
+
+[Metadata](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)는 각 페이지에서 사용할 메타데이터를 정의하는 부분이다.  
+SEO 최적화를 위해 필요한 부분이며, 페이지에 맞는 Metadata를 절 정의해야 한다.  
+
+### 2. 글 불러오기
+필자는 mdx를 사용하여 글을 작성하였다.  
+작성한 글(mdx 파일)을 불러오기 위해 `getPosts`, `getPost` 함수를 만들었다.
+
+- util/getPost.ts
+```tsx
+// src/util/getPost.ts
+import { cache } from 'react';
+import fs from 'fs/promises';
+import matter from 'gray-matter';
+import path from 'path';
+import type { FrontMatter } from '@/types/posts';
+  
+export const getPosts = cache(async () => {
+  const posts = await fs.readdir('./src/posts/');
+  
+  return Promise.all(
+    posts
+      .filter((file) => path.extname(file) === '.mdx')
+      .map(async (file) => {
+        const filePath = `./src/posts/${file}`;
+        const postContent = await fs.readFile(filePath, 'utf8');
+        const { data, content } = matter(postContent);
+
+        return { ...data, body: content } as FrontMatter & { body: string };
+      })
+  ).then((posts) => posts.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1)));
+});
+  
+export async function getPost(slug: string) {
+  const posts = await getPosts();
+  return posts.find((post) => post?.slug === slug);
+}
+  
+export default getPosts;
+```
+
+`getPosts`함수를 사용해 mdx 파일들이 저장되어 있는 `src/posts` 폴더에 접근하여 파일을 읽어온다.  
+
+이때 `getPosts`함수를 [cache](https://react.dev/reference/react/cache) 함수로 감쌌는데, 이는 React에서 Server Component를 위해 제공하는 기능으로, `cache`함수로 감싼 함수의 결과를 캐싱 하여 재사용한다.  
+
+`gray-matter`은 mdx의 [front-matter](https://mdxjs.com/guides/frontmatter/)를 객체로 파싱 하기 위해 사용한다.  
+```mdx
+---
+title: 'Next.js 13 App Router 블로그 개발기'
+description: 'Next.js 13에서 App Router를 사용하여 블로그를 개발한 이야기입니다'
+date: '2023.12.20'
+tags: ['Front-End', 'TypeScript', 'React', 'Next.js']
+slug: 'nextjs-blog'
+---
+```
+> front-matter의 예시. mdx 파일의 상단에 위치한다.  
+
+파싱 한 front-matter data를 이용하여 글 목록의 title, description, date, tags 등을 불러온다.  
+또한, 글 목록을 최신 날짜 순으로 정렬하기 위해 `sort`함수를 사용했다.  
+
+그 밑에 `getPost`함수는 `getPosts`함수를 사용하여 글 목록을 불러온 후, 찾고자 하는 slug와 글 목록의 slug를 비교하여 글을 찾아 반환하는 함수이다.
+
+### 3. posts, about 페이지 구성
+필자는 블로그에 `/posts`와 `/about` 페이지를 구성하였다.  
+
+#### 3-1. /posts page
+`/posts` 페이지는 블로그의 메인 페이지이자 글 목록을 보여주는 페이지이다.  
+`src/posts` 폴더 안에 각 post mdx 파일을 읽어 글 목록을 보여준다.  
+글 아이템을 클릭하면 해당 글의 slug data를 통해 해당 글로 이동하게 된다.  
+
+- posts/pages.tsx
+```tsx
+// src/app/posts/page.tsx
+import Link from 'next/link';
+  
+import Container from '@/components/container';
+import Tag from '@/components/tag';
+  
+import getPosts from '@/util/getPost';
+  
+export default async function Posts() {
+  const posts = await getPosts();
+  
+  return (
+    <Container>
+      <ul>
+        {posts.map(({ slug, title, description, date, tags }) => (
+          <li key={slug} className='group flex-col border-b last:border-b-0 dark:border-dark-bo'>
+            <Link href={{ pathname: `/posts/${slug}` }} className='block py-4'>
+              <strong className='block mb-2 text-xl group-hover:underline'>{title}</strong>
+              <p>{description}</p>
+              <span className='text-xs'>{date}</span>
+              <div className='mt-3'>
+                {tags.map((tag) => (
+                  <Tag key={tag} name={tag} />
+                ))}
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  );
+}
+```
+
+`getPosts` 함수를 사용하여 글 목록을 불러오고 해당 data를 이용하여 글 목록을 렌더링 한다.  
+
+글을 클릭하면 해당 글(/posts/[slug])로 이동하게 되는데, 이 부분은 Next.js에서 제공하는 [Dynamic Routes](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes)를 사용하여 구현하였다.  
+
+<br />
+
+`/posts/[slug]` 페이지는 글을 보여주는 페이지이다.  
+slug를 통해 `getPost`함수를 사용하여 해당 글의 data를 불러온다.  
+
+`getPost` 함수를 통해 글 data를 불러오고, 글 data가 없을 시 Next.js에서 지원하는 [notFound](https://nextjs.org/docs/app/api-reference/functions/not-found) 함수를 호출하여 404 페이지를 보여주는 에러 처리를 하였다.
+
+- posts/[slug]/pages.tsx
+```tsx
+// src/app/posts/[slug]/page.tsx
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+  
+import { siteConfig, defaultMetadata } from '@/config/site';
+  
+import Container from '@/components/container';
+import PostHeader from '@/components/postHeader';
+import Title from '@/components/title';
+  
+import { getPost, getPosts } from '@/util/getPost';
+  
+import { mdxComponents } from '@/app/mdx-components';
+  
+import 'github-markdown-css';
+  
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  
+  return posts.map(({ slug }) => ({ slug }));
+}
+  
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = await getPost(params.slug);
+  
+  return {
+    ...defaultMetadata,
+    title: `${post?.title} - hywlss9`,
+    description: post?.description,
+    openGraph: {
+      ...defaultMetadata.openGraph,
+      title: `${post?.title} - hywlss9`,
+      description: post?.description,
+      url: `${siteConfig.url}/posts/${params.slug}`,
+    },
+  };
+}
+  
+function PostBody({ children }: { children: string }) {
+  return (
+    // @ts-ignore
+    <MDXRemote source={children} components={mdxComponents} />
+  );
+}
+  
+export default async function Post({ params }: { params: { [key: string]: string } }) {
+  const { slug } = params;
+  
+  const post = await getPost(slug);
+  
+  if (!post) return notFound();
+  
+  return (
+    <Container>
+      <PostHeader date={post?.date} border={true}>
+        <Title>{post?.title}</Title>
+      </PostHeader>
+      <div className='markdown-body'>
+        <PostBody>{post?.body}</PostBody>
+      </div>
+    </Container>
+  );
+}
+```
+[`generateStaticParams`](https://nextjs.org/docs/app/api-reference/functions/generate-static-params)은 Next.js 13에서 제공하는 함수로, 해당 페이지의 path를 정의하는 함수이다.  
+Next.js에서 [SSG](https://nextjs.org/docs/app/building-your-application/rendering/server-components#static-rendering-default)를 하기 위해 사용하는 함수이며, 빌드 시에 정적 페이지 생성을 위해 사용된다.  
+return 값은 `string`형식의 `params`여야 한다.  
+필자는 `slug`를 `params`로 정의하여 사용하기 때문에, 글 목록의 데이터 중 `slug`를 추출하여 return 하였다.
+
+[`generateMetadata`](https://nextjs.org/docs/app/api-reference/functions/generate-metadata)는 Next.js 13에서 제공하는 함수로, 해당 페이지의 메타데이터를 정의하는 함수이다.  
+Dynamic Routing 환경에서 빌드 시에 메타데이터를 정의하기 위해 사용된다.  
+
+mdx 파일은 딱히 style이 적용되어 있지 않기 때문에, [`github-markdown-css`](https://github.com/sindresorhus/github-markdown-css)를 사용하여 Github의 markdown style을 적용하였다.  
+
+`MDXRemote` 컴포넌트를 사용하여 mdx 파일을 렌더링 하였는데, 이 컴포넌트는 mdx 파일을 불러오고 렌더링 하기 위해 사용하는 컴포넌트이다.  
+`MDXRemote`는 `components` prop을 통해 mdx 파일에서 사용하는 컴포넌트를 정의할 수 있다.  
+
+- app/mdx-components.tsx
+```tsx
+// src/app/mdx-components.tsx
+import Link from 'next/link';
+import Image from 'next/image';
+import type { ImageProps } from 'next/image';
+import type { MDXComponents } from 'mdx/types';
+import { Code } from 'bright';
+  
+export const mdxComponents: MDXComponents = {
+  pre: Code,
+  a: ({ children, ...props }) => {
+    return (
+      <Link {...(props as React.RefAttributes<HTMLAnchorElement>)} href={props.href || ''} target='_blank'>
+        {children}
+      </Link>
+    );
+  },
+  img: ({ ...props }) => {
+    return <Image {...(props as ImageProps)} />;
+  },
+  ul: ({ children }) => {
+    return <ul className='list-disc'>{children}</ul>;
+  },
+};
+```
+필자는 `mdx-components`라는 mdx에서 사용할 컴포넌트들을 재정의하는 컴포넌트를 만들었다.  
+
+글 내용 중 코드 부분에 style을 주기 위해 pre tag에 [`bright`](https://github.com/code-hike/bright)가 rendering 되게 코드를 작성하였다.  
+> `bright` 뿐만 아니라 [`prism-react-renderer`](https://github.com/FormidableLabs/prism-react-renderer)도 많이 쓰인다.  
+
+a tag에는 next/link의 [`Link`](https://nextjs.org/docs/app/api-reference/components/link) tag를 사용하여 rendering 하였다.  
+
+img tag에는 next/image의 [`Image`](https://nextjs.org/docs/api-reference/next/image) tag를 사용하여 rendering 하였다.
+
+이외에도 다양한 tag들을 render 시킬 수 있다.
+
+#### 3-2. /about page
+`/about` 페이지는 필자의 소개 페이지이며,  
+개인정보를 내가 직접 올리긴 했지만, 뭔가 검색은 되지 않았으면 해서 [robots.ts](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots#generate-a-robots-file)를 이용해 검색엔진이 찾을 수 없게 했다.  
+
+- app/robots.ts
+```ts
+// src/app/robots.ts
+import { MetadataRoute } from 'next';
+  
+import { siteConfig } from '@/config/site';
+  
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: '*',
+      disallow: '/about',
+    },
+    sitemap: `${siteConfig.url}/sitemap.xml`,
+  };
+}
+```  
+
+- about/pages.tsx
+```tsx
+// src/app/about/page.tsx
+import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+  
+import { defaultMetadata, siteConfig } from '@/config/site';
+  
+import Container from '@/components/container';
+  
+export const metadata: Metadata = {
+  ...defaultMetadata,
+  title: 'About 개발자 박형진 - hywlss9',
+  description: '개발자 박형진을 소개합니다.',
+  openGraph: {
+    ...defaultMetadata.openGraph,
+    url: `${siteConfig.url}/about`,
+    title: 'About 개발자 박형진 - hywlss9',
+    description: '개발자 박형진을 소개합니다.',
+  },
+};
+  
+interface AboutListData {
+  title: string;
+  content: string;
+  link?: string;
+}
+  
+const INFO: AboutListData[] = [
+  { title: '이름', content: '박형진' },
+  // ... 추가 데이터
+];
+  
+const HISTORY: AboutListData[] = [
+  { title: 'ARTiPIO', content: '2020.08 ~ ing', link: 'https://artipio.com' },
+  // ... 추가 데이터
+];
+  
+const SubTitle = ({ children }: { children: ReactNode }) => <h3 className='py-2 text-xl'>{children}</h3>;
+  
+const HarfBasisText = ({ children }: { children: ReactNode }) => <span className='basis-1/2'>{children}</span>;
+  
+export default function About() {
+  return (
+    <Container className='flex-col items-center justify-center'>
+      <div className='max-w-740 mx-auto'>
+        <SubTitle>개발자 박형진의 BLOG</SubTitle>
+        <div className='mb-2'>
+          <p>안녕하세요</p>
+          <p>프론트엔드 개발자 박형진입니다.</p>
+        </div>
+        <div>
+          <p>블로그 글 내용이나 버그 등 이슈가 있다면 아래 링크에 이슈를 남겨주세요! 감사합니다 :)</p>
+          <Link
+            href='https://github.com/hywlss9/hywlss9.github.io/issues'
+            target='_blank'
+            className='bg-transparent text-[#0969da] no-underline hover:underline'
+          >
+            Blog Issues
+          </Link>
+        </div>
+        <br />
+        <hr className='mt-4mb-2' />
+        <SubTitle>정보</SubTitle>
+        {INFO.map(({ title, content }, index) => (
+          <div key={index} className='flex items-center'>
+            <HarfBasisText>{title}</HarfBasisText>
+            <HarfBasisText>{content}</HarfBasisText>
+          </div>
+        ))}
+        <hr className='mt-4 mb-2' />
+        <SubTitle>이력</SubTitle>
+        <ul>
+          {HISTORY.map(({ title, content, link }, index) => {
+            return (
+              <li key={index} className='flex'>
+                <HarfBasisText>
+                  {link ? (
+                    <Link href={link} target='_blank' className='hover:underline'>
+                      {title}
+                    </Link>
+                  ) : (
+                    title
+                  )}
+                </HarfBasisText>
+                <HarfBasisText>{content}</HarfBasisText>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </Container>
+  );
+}
+```
+about 페이지는 딱히 기술적인 요소가 없는 것 같다..  
+그냥 화면에 data 넣어놓고 map 돌려서 list 형식으로 뽑아서 보여주는 페이지이다.  
+필자의 블로그에는 디자인적인 요소가 크게 없기 때문에, 이런 페이지가 만들어졌다.  
+
+## SEO 작업
+필자는 SEO 최적화를 위해 `sitemap.ts`, `robots.ts`, `metadata` 등을 사용하였다.  
+
+`robots.ts`와 `metadata`는 위에서 설명하였기 때문에 생략하겠다.
+
+### sitemap.ts
+`sitemap.ts`는 Next.js에서 제공하는 [sitemap](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap#generating-a-sitemap-using-code-js-ts)을 사용하여 sitemap.xml을 생성하는 파일이다.  
+
+- app/sitemap.ts
+```ts
+// src/app/sitemap.ts
+import type { MetadataRoute } from 'next';
+  
+import { siteConfig } from '@/config/site';
+  
+import { getPosts } from '@/util/getPost';
+  
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getPosts();
+  const postsUrls = posts.map((params) => `${siteConfig.url}/posts/${params.slug}`);
+  
+  return [
+    {
+      url: siteConfig.url,
+    },
+    {
+      url: `${siteConfig.url}/about`,
+    },
+    {
+      url: `${siteConfig.url}/posts`,
+    },
+    ...postsUrls.map((url) => ({ url })),
+  ];
+}
+```
+`getPosts`함수를 사용하여 글 목록을 불러오고, 블로그 site의 정보가 들어있는 `siteConfig`의 url과 slug를 이용하여 글 목록의 url을 생성한다.  
+
+이렇게 하면 빌드 시에 `sitemap.xml` 파일이 생성되며, 검색엔진이 이 `sitemap.xml`을 읽고 내 사이트를 파악할 수 있게 된다.  
+
+## 배포하기
+필자는 `Github Pages`와 `Github Actions`를 사용하여 배포하였다.  
+
+- .github/workflows/deploy.yml
+```yml
+name: Deploy Next.js site to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+  
+# 내용 생략
+  
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 내용 생략
+      - name: Build with Next.js
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      - name: Static HTML export with Next.js
+        run: ${{ steps.detect-package-manager.outputs.runner }} next export
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./out
+  
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+```
+workflow 파일의 경우 Github Actions에서 Next.js의 workflow 파일을 그냥 제공해 줘서 그대로 가져다 사용했다.  
+
+필자는 블로그의 모든 개발을 `dev` branch에서 작업하고 `main` branch로 pull request를 보낸 후 merge 하는 방식으로 배포한다.  
+merge 완료 시 Github Action가 실행되어 자동으로 빌드하고 배포해 준다.  
+
+## 마무리
+필자의 블로그 개발은 사실 아직 100% 완성은 아니지만, 본인 소개와 글을 보여주는 데에는 큰 문제가 없다고 생각하여 해당 포스트를 작성하게 되었다.  
+
+주변의 개발자들을 보면 직접 개발하기 귀찮아서 티스토리나 velog, medium 등의 플랫폼을 사용하는 경우가 많은데, 프론트엔드 개발자라면 Next.js를 공부할 겸 최신 버전을 사용하여 개발해 보는 것도 좋은 선택이라는 것을 조금이나마 알릴 수 있다면 이 글의 목적은 어느 정도 달성했다고 생각한다.  
+
+나는 아직 많이 부족한 개발자이고, 이 블로그와 글도 아직 많이 부족하다.  
+
+앞으로 공부를 더 많이 하고, 더 좋은 글을 쓸 수 있도록 노력해야겠다.  
+
+## 참고 문서
+[Next.js 13](https://nextjs.org/docs)  
+[[번역] Next.js 13과 리액트 서버 컴포넌트로 블로그 구축하기 - surim014](https://velog.io/@surim014/building-a-blog-with-Next.js-13-and-React-Server-Components)  
+[gray-matter - skh417](https://velog.io/@skh417/gray-matter)

@@ -2,7 +2,7 @@ import { cache } from 'react';
 import fs from 'fs/promises';
 import matter from "gray-matter";
 import path from "path";
-import type { FrontMatter } from '@/types/posts';
+import type { FrontMatter } from '@type/posts';
 
 export const getPosts = cache(async () => {
   const posts  = await fs.readdir('./src/posts/');

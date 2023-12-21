@@ -6,6 +6,7 @@ type Tag =
   | "JavaScript"
   | "TypeScript"
   | "React"
+  | "Next.js"
   | "Electron";
 
 interface FrontMatter {

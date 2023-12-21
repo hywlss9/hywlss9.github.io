@@ -1,4 +1,4 @@
-import type { ListItem } from "@/types/links";
+import type { ListItem } from "@type/links";
 
 export const LIST_ITEMS: ListItem[] = [
   { id: "about", name: "소개", link: "/about" },

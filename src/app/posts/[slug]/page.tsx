@@ -2,15 +2,15 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
-import { siteConfig, defaultMetadata } from "@/config/site";
+import { siteConfig, defaultMetadata } from "@config/site";
 
-import Container from "@/components/container";
-import PostHeader from "@/components/postHeader";
-import Title from "@/components/title";
+import Container from "@components/container";
+import PostHeader from "@components/postHeader";
+import Title from "@components/title";
 
-import { getPost, getPosts } from "@/util/getPost";
+import { getPost, getPosts } from "@util/getPost";
 
-import { mdxComponents } from "@/app/mdx-components";
+import { mdxComponents } from "@app/mdx-components";
 
 import "github-markdown-css";
 
@@ -29,9 +29,11 @@ export async function generateMetadata({
 
   return {
     ...defaultMetadata,
+    title: `${post?.title} - hywlss9`,
+    description: post?.description,
     openGraph: {
       ...defaultMetadata.openGraph,
-      title: post?.title,
+      title: `${post?.title} - hywlss9`,
       description: post?.description,
       url: `${siteConfig.url}/posts/${params.slug}`,
     },

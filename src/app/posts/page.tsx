@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import Container from "@/components/container";
-import Tag from "@/components/tag";
+import Container from "@components/container";
+import Tag from "@components/tag";
 
-import getPosts from "@/util/getPost";
+import getPosts from "@util/getPost";
 
 export default async function Posts() {
   const posts = await getPosts();

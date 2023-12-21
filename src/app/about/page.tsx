@@ -56,6 +56,17 @@ export default function About() {
           <p>안녕하세요</p>
           <p>프론트엔드 개발자 박형진입니다.</p>
         </div>
+        <div>
+          <p>블로그 글 내용이나 버그 등 이슈가 있다면 아래 링크에 이슈를 남겨주세요! 감사합니다 :)</p>
+          <Link
+            href='https://github.com/hywlss9/hywlss9.github.io/issues'
+            target='_blank'
+            className='bg-transparent text-[#0969da] no-underline hover:underline'
+          >
+            Blog Issues
+          </Link>
+        </div>
+        <br />
         <hr className='mt-4mb-2' />
         <SubTitle>정보</SubTitle>
         {INFO.map(({ title, content }, index) => (

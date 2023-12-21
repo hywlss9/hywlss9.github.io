@@ -16,4 +16,7 @@ export const mdxComponents: MDXComponents = {
   img: ({ ...props }) => {
     return <Image {...(props as ImageProps)} />;
   },
+  ul: ({ children }) => {
+    return <ul className='list-disc'>{children}</ul>;
+  },
 };

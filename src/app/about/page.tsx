@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -7,11 +8,13 @@ import Container from '@/components/container';
 
 export const metadata: Metadata = {
   ...defaultMetadata,
+  title: 'About 개발자 박형진 - hywlss9',
+  description: '개발자 박형진을 소개합니다.',
   openGraph: {
     ...defaultMetadata.openGraph,
     url: `${siteConfig.url}/about`,
-    title: '소개',
-    description: '개발자 박형진의 BLOG',
+    title: 'About 개발자 박형진 - hywlss9',
+    description: '개발자 박형진을 소개합니다.',
   },
 };
 
@@ -43,9 +46,9 @@ const HISTORY: AboutListData[] = [
   { title: '서울디지텍고등학교', content: '2017.03 ~ 2020.02' },
 ];
 
-const SubTitle = ({ children }: { children: React.ReactNode }) => <h3 className='py-2 text-xl'>{children}</h3>;
+const SubTitle = ({ children }: { children: ReactNode }) => <h3 className='py-2 text-xl'>{children}</h3>;
 
-const HarfBasisText = ({ children }: { children: React.ReactNode }) => <span className='basis-1/2'>{children}</span>;
+const HarfBasisText = ({ children }: { children: ReactNode }) => <span className='basis-1/2'>{children}</span>;
 
 export default function About() {
   return (

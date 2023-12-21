@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import { siteConfig } from "@config/site";
+import { siteConfig } from "@/config/site";
 
-import Container from "@components/container";
-import Button from "@components/button";
+import Container from "@/components/container";
+import Button from "@/components/button";
 
 export default function NotFound() {
   return (

@@ -53,9 +53,9 @@ Typescript, React, React-Redux, antd이다.
 ### App.tsx
 
 ```tsx
-import Test from "@src/pages/Test";
+import Test from "@/src/pages/Test";
  
-import ModalManager from "@src/components/ModalManager";
+import ModalManager from "@/src/components/ModalManager";
  
 function App() {
   return (
@@ -206,10 +206,10 @@ import { lazy, Suspense } from "react";
  
 import { useSelector } from "react-redux";
  
-import { RootState } from "@src/reduce";
+import { RootState } from "@/src/reduce";
  
 const MODALS = {
-  Test: lazy(() => import("@src/components/Modals/Test")),
+  Test: lazy(() => import("@/src/components/Modals/Test")),
 };
  
 function ModalManager() {
@@ -251,7 +251,7 @@ openedModals를 map 돌려 redux에 저장된 Modal name을 mapping 시켜 Modal
 ```tsx
 import { Modal, ModalProps } from "antd";
  
-import { trigger } from "@src/util/ModalEvents";
+import { trigger } from "@/src/util/ModalEvents";
  
 interface TestModalProps extends ModalProps {
   data?: any;
@@ -290,9 +290,9 @@ import { useEffect } from "react";
  
 import { useDispatch } from "react-redux";
  
-import { openModal } from "@src/reduce/modals";
+import { openModal } from "@/src/reduce/modals";
  
-import { on, off } from "@src/util/ModalEvents";
+import { on, off } from "@/src/util/ModalEvents";
  
 function Test() {
   const dispatch = useDispatch();

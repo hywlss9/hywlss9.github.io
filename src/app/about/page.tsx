@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { defaultMetadata, siteConfig } from "@config/site";
+import { defaultMetadata, siteConfig } from "@/config/site";
 
-import Container from "@components/container";
+import Container from "@/components/container";
 
 export const metadata: Metadata = {
   ...defaultMetadata,

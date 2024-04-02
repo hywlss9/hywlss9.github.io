@@ -21,7 +21,7 @@ slug: 'nextjs-blog'
 <br />
 
 ## Next.js를 사용한 이유
-직접 블로그를 만드는 방법에는 여러 가지가 있지만, 필자는 `Next.js`와 `Gastby` 중 한 가지를 생각 중 이었다.  
+직접 블로그를 만드는 방법에는 여러 가지가 있지만, `Next.js`와 `Gastby` 중 한 가지를 생각 중 이었다.  
 
 일단 내가 경험해 본 프론트엔드 기술 스택이 React 말고는 없었기 때문에 React 기반이거나 비슷해야 했기 때문에 저 두 가지를 후보로 세워놨다.  
 
@@ -316,7 +316,7 @@ export default async function Post({ params }: { params: { [key: string]: string
 [`generateStaticParams`](https://nextjs.org/docs/app/api-reference/functions/generate-static-params)은 Next.js 13에서 제공하는 함수로, 해당 페이지의 path를 정의하는 함수이다.  
 Next.js에서 [SSG](https://nextjs.org/docs/app/building-your-application/rendering/server-components#static-rendering-default)를 하기 위해 사용하는 함수이며, 빌드 시에 정적 페이지 생성을 위해 사용된다.  
 return 값은 `string`형식의 `params`여야 한다.  
-필자는 `slug`를 `params`로 정의하여 사용하기 때문에, 글 목록의 데이터 중 `slug`를 추출하여 return 하였다.
+글의 주소를 `slug`를 `params`로 정의하여 사용하기 때문에, 글 목록의 데이터 중 `slug`를 추출하여 return 하였다.
 
 [`generateMetadata`](https://nextjs.org/docs/app/api-reference/functions/generate-metadata)는 Next.js 13에서 제공하는 함수로, 해당 페이지의 메타데이터를 정의하는 함수이다.  
 Dynamic Routing 환경에서 빌드 시에 메타데이터를 정의하기 위해 사용된다.  
@@ -364,7 +364,7 @@ img tag에는 next/image의 [`Image`](https://nextjs.org/docs/api-reference/next
 이외에도 다양한 tag들을 render 시킬 수 있다.
 
 #### 3-2. /about page
-`/about` 페이지는 필자의 소개 페이지이며,  
+`/about` 페이지는 소개 페이지이며,  
 개인정보를 내가 직접 올리긴 했지만, 뭔가 검색은 되지 않았으면 해서 [robots.ts](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots#generate-a-robots-file)를 이용해 검색엔진이 찾을 수 없게 했다.  
 
 - app/robots.ts
@@ -483,10 +483,10 @@ export default function About() {
 ```
 about 페이지는 딱히 기술적인 요소가 없는 것 같다..  
 그냥 화면에 data 넣어놓고 map 돌려서 list 형식으로 뽑아서 보여주는 페이지이다.  
-필자의 블로그에는 디자인적인 요소가 크게 없기 때문에, 이런 페이지가 만들어졌다.  
+당장은 블로그에 디자인적인 요소가 크게 없기 때문에, 이런 페이지가 만들어졌다.  
 
 ## SEO 작업
-필자는 SEO 최적화를 위해 `sitemap.ts`, `robots.ts`, `metadata` 등을 사용하였다.  
+SEO 최적화를 위해 `sitemap.ts`, `robots.ts`, `metadata` 등을 사용하였다.  
 
 `robots.ts`와 `metadata`는 위에서 설명하였기 때문에 생략하겠다.
 
@@ -525,7 +525,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 이렇게 하면 빌드 시에 `sitemap.xml` 파일이 생성되며, 검색엔진이 이 `sitemap.xml`을 읽고 내 사이트를 파악할 수 있게 된다.  
 
 ## 배포하기
-필자는 `Github Pages`와 `Github Actions`를 사용하여 배포하였다.  
+`Github Pages`와 `Github Actions`를 사용하여 배포하였다.  
 
 - .github/workflows/deploy.yml
 ```yml

@@ -15,7 +15,7 @@ export const metadata: Metadata = defaultMetadata;
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='ko'>
-      <Script>{`
+      <Script id='google-analytics'>{`
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRKWXMDHJB"></script>
         <script>

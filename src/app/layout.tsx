@@ -15,16 +15,16 @@ export const metadata: Metadata = defaultMetadata;
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='ko'>
-      <Script id='google-analytics'>{`
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRKWXMDHJB"></script>
-        <script>
+      <Script
+        src='https://www.googletagmanager.com/gtag/js?id=G-NRKWXMDHJB'
+        onload={() => {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
           gtag('config', 'G-NRKWXMDHJB');
-      `}</Script>
+        }}
+      />
       <body className='dark:bg-dark-bg'>
         <Header />
         {children}

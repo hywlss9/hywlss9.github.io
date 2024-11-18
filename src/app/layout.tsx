@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang='ko'>
       <Script
         src='https://www.googletagmanager.com/gtag/js?id=G-NRKWXMDHJB'
-        onload={() => {
+        onLoad={() => {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());

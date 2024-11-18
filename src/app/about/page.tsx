@@ -31,10 +31,10 @@ const INFO: AboutListData[] = [
 ];
 
 const HISTORY: AboutListData[] = [
-  { title: 'ARTiPIO', content: '2020.08 ~ ing', link: 'https://artipio.com' },
+  { title: 'ARTiPIO', content: '2023.08 ~ ing', link: 'https://artipio.com' },
   {
     title: '서울디지텍고등학교 강사',
-    content: '2020.05',
+    content: '2023.05',
     link: 'http://www.sdh.hs.kr/',
   },
   { title: '광운대학교', content: '2023.03 ~ ing' },

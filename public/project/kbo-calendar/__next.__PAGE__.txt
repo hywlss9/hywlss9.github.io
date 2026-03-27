@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[43302,["/project/kbo-calendar/_next/static/chunks/0wxniezkvra1u.js","/project/kbo-calendar/_next/static/chunks/0d3shmwh5_nmn.js","/project/kbo-calendar/_next/static/chunks/0zhi3fjtypbud.js"],"SettingsButton"]
+3:"$Sreact.suspense"
+4:I[81275,["/project/kbo-calendar/_next/static/chunks/0wxniezkvra1u.js","/project/kbo-calendar/_next/static/chunks/0d3shmwh5_nmn.js","/project/kbo-calendar/_next/static/chunks/0zhi3fjtypbud.js"],"CalendarPageClient"]
+5:I[97367,["/project/kbo-calendar/_next/static/chunks/0wxniezkvra1u.js","/project/kbo-calendar/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"min-h-screen bg-white dark:bg-zinc-950 flex flex-col","children":[["$","header",null,{"className":"px-4 py-3 border-b border-zinc-200 dark:border-zinc-800","children":["$","div",null,{"className":"flex items-center justify-between","children":[["$","h1",null,{"className":"text-lg font-bold tracking-tight","children":"KBO 캘린더"}],["$","$L2",null,{}]]}]}],["$","$3",null,{"fallback":["$","div",null,{"className":"flex-1 flex items-center justify-center text-zinc-400","children":"Loading..."}],"children":["$","$L4",null,{}]}]]}],[["$","script","script-0",{"src":"/project/kbo-calendar/_next/static/chunks/0zhi3fjtypbud.js","async":true}]],["$","$L5",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"12O8zZpV23HE3qDo6BFsz"}
+6:null
